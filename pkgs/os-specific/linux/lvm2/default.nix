@@ -31,6 +31,13 @@ stdenv.mkDerivation {
 
   preConfigure =
     ''
+      substituteInPlace scripts/blkdeactivate.sh.in \
+        --replace /bin/mountpoint mountpoint \
+        --replace /bin/umount umount \
+        --replace /bin/findmnt findmnt \
+        --replace /bin/lsblk lsblk \
+        --replace /bin/sort sort \
+        --replace /sbin/multipathd multipathd
       substituteInPlace scripts/lvm2_activation_generator_systemd_red_hat.c \
         --replace /usr/bin/udevadm ${systemd}/bin/udevadm
 
